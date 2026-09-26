@@ -429,7 +429,7 @@ Status: Complete
 
 ------------------------------------------------------------------------
 
-# Stage 5 --- Career Profile Extraction
+# Stage 5 --- Career Profile Extraction [COMPLETE]
 
 ## Goal
 
@@ -536,6 +536,8 @@ Test:
 
 A user can create, inspect, edit, merge, export, and import a Career
 Profile.
+
+Status: Complete
 
 ------------------------------------------------------------------------
 

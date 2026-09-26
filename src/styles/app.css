@@ -161,3 +161,74 @@ body {
 .configure-step__clear-session {
   align-self: flex-start;
 }
+
+.visually-hidden-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.field-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin: 0.5rem 0;
+}
+
+.field-row--checkbox {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.list-editor {
+  border: 1px solid var(--workbench-border);
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  margin: 1rem 0;
+}
+
+.list-editor__item {
+  border: 1px dashed var(--workbench-border);
+  border-radius: 6px;
+  padding: 0.75rem;
+  margin: 0.75rem 0;
+}
+
+.list-editor__empty {
+  color: #666;
+  font-style: italic;
+}
+
+.career-profile-step,
+.career-profile-input-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 48rem;
+}
+
+.career-profile-input-form__actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.career-profile-input-form__error {
+  color: #8a1f11;
+}
+
+.career-profile-input-form__image-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.career-profile-step__download {
+  align-self: flex-start;
+}

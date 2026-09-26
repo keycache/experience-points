@@ -1,5 +1,6 @@
 import { getWorkflowStep } from '../app/workflow';
 import { ConfigureStep } from './settings/ConfigureStep';
+import { CareerProfileStep } from './career-profile/CareerProfileStep';
 
 interface WorkflowStepContentProps {
   stepId: string;
@@ -30,6 +31,10 @@ export function WorkflowStepContent({ stepId }: WorkflowStepContentProps) {
 
   if (step.id === 'configure') {
     return <ConfigureStep />;
+  }
+
+  if (step.id === 'career-profile') {
+    return <CareerProfileStep />;
   }
 
   return (
