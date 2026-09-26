@@ -4,6 +4,8 @@ import { generateId } from '../../utils/ids';
 import { parseArtifactJson } from '../../services/import-export/artifacts';
 import { CAREER_PROFILE_ARTIFACT } from '../../services/import-export/artifacts';
 import type { CareerProfile } from '../../schemas/careerProfile';
+import type { GenerationState } from '../../utils/generationState';
+import { GenerationErrorAlert } from '../common/GenerationErrorAlert';
 
 interface StagedImage {
   id: string;
@@ -17,11 +19,6 @@ export interface CareerProfileGenerateInput {
   additionalDetails: string;
   images: { dataUrl: string; mimeType: string }[];
 }
-
-type GenerationState =
-  | { status: 'idle' }
-  | { status: 'loading' }
-  | { status: 'error'; message: string };
 
 interface CareerProfileInputFormProps {
   hasExistingProfile: boolean;
@@ -190,12 +187,11 @@ export function CareerProfileInputForm({
       )}
 
       {generationState.status === 'error' && (
-        <div role="alert" className="career-profile-input-form__error">
-          <p>{generationState.message}</p>
-          <button type="button" onClick={handleGenerateClick}>
-            Retry
-          </button>
-        </div>
+        <GenerationErrorAlert
+          error={generationState.error}
+          message={generationState.message}
+          onRetry={handleGenerateClick}
+        />
       )}
     </div>
   );

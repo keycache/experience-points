@@ -8,12 +8,9 @@ import {
 } from '../../services/import-export/artifacts';
 import { readFileAsText, validateJsonFile } from '../../utils/files';
 import { useAppState } from '../../state/AppContext';
+import { toGenerationErrorState, type GenerationState } from '../../utils/generationState';
+import { GenerationErrorAlert } from '../common/GenerationErrorAlert';
 import { ResumeEditor } from './ResumeEditor';
-
-type GenerationState =
-  | { status: 'idle' }
-  | { status: 'loading' }
-  | { status: 'error'; message: string };
 
 /**
  * Content for the "Resume" workflow step.
@@ -70,8 +67,7 @@ export function ResumeStep() {
       dispatch({ type: 'SET_RESUME', payload: result });
       setGenerationState({ status: 'idle' });
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Failed to generate resume.';
-      setGenerationState({ status: 'error', message });
+      setGenerationState(toGenerationErrorState(error, 'Failed to generate resume.'));
     }
   }
 
@@ -141,12 +137,11 @@ export function ResumeStep() {
       )}
 
       {generationState.status === 'error' && (
-        <div role="alert" className="career-profile-input-form__error">
-          <p>{generationState.message}</p>
-          <button type="button" onClick={handleGenerate}>
-            Retry
-          </button>
-        </div>
+        <GenerationErrorAlert
+          error={generationState.error}
+          message={generationState.message}
+          onRetry={handleGenerate}
+        />
       )}
 
       {resume ? (

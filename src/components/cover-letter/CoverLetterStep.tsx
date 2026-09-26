@@ -8,12 +8,9 @@ import {
 } from '../../services/import-export/artifacts';
 import { readFileAsText, validateJsonFile } from '../../utils/files';
 import { useAppState } from '../../state/AppContext';
+import { toGenerationErrorState, type GenerationState } from '../../utils/generationState';
+import { GenerationErrorAlert } from '../common/GenerationErrorAlert';
 import { CoverLetterEditor } from './CoverLetterEditor';
-
-type GenerationState =
-  | { status: 'idle' }
-  | { status: 'loading' }
-  | { status: 'error'; message: string };
 
 /**
  * Content for the "Cover Letter" workflow step (plan.md Stage 14.5).
@@ -70,8 +67,7 @@ export function CoverLetterStep() {
       dispatch({ type: 'SET_COVER_LETTER', payload: result });
       setGenerationState({ status: 'idle' });
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Failed to generate cover letter.';
-      setGenerationState({ status: 'error', message });
+      setGenerationState(toGenerationErrorState(error, 'Failed to generate cover letter.'));
     }
   }
 
@@ -140,12 +136,11 @@ export function CoverLetterStep() {
       )}
 
       {generationState.status === 'error' && (
-        <div role="alert" className="career-profile-input-form__error">
-          <p>{generationState.message}</p>
-          <button type="button" onClick={handleGenerate}>
-            Retry
-          </button>
-        </div>
+        <GenerationErrorAlert
+          error={generationState.error}
+          message={generationState.message}
+          onRetry={handleGenerate}
+        />
       )}
 
       {coverLetter ? (

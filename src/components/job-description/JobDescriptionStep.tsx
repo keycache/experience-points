@@ -4,13 +4,9 @@ import { extractJobDescription } from '../../services/job-description/extractJob
 import { downloadArtifact, JOB_DESCRIPTION_ARTIFACT } from '../../services/import-export/artifacts';
 import { useAppState } from '../../state/AppContext';
 import type { JobDescription } from '../../schemas/jobDescription';
+import { toGenerationErrorState, type GenerationState } from '../../utils/generationState';
 import { JobDescriptionInputForm, type JobDescriptionGenerateInput } from './JobDescriptionInputForm';
 import { JobDescriptionEditor } from './JobDescriptionEditor';
-
-type GenerationState =
-  | { status: 'idle' }
-  | { status: 'loading' }
-  | { status: 'error'; message: string };
 
 /**
  * Content for the "Job Description" workflow step (plan.md Stage 6).
@@ -47,8 +43,7 @@ export function JobDescriptionStep() {
       dispatch({ type: 'SET_JOB_DESCRIPTION', payload: result });
       setGenerationState({ status: 'idle' });
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Failed to generate Job Description.';
-      setGenerationState({ status: 'error', message });
+      setGenerationState(toGenerationErrorState(error, 'Failed to generate Job Description.'));
     }
   }
 

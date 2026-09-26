@@ -3,6 +3,8 @@ import { readFileAsDataUrl, validateImageFile, validateJsonFile, readFileAsText 
 import { generateId } from '../../utils/ids';
 import { parseArtifactJson, JOB_DESCRIPTION_ARTIFACT } from '../../services/import-export/artifacts';
 import type { JobDescription } from '../../schemas/jobDescription';
+import type { GenerationState } from '../../utils/generationState';
+import { GenerationErrorAlert } from '../common/GenerationErrorAlert';
 
 interface StagedImage {
   id: string;
@@ -15,11 +17,6 @@ export interface JobDescriptionGenerateInput {
   rawText: string;
   images: { dataUrl: string; mimeType: string }[];
 }
-
-type GenerationState =
-  | { status: 'idle' }
-  | { status: 'loading' }
-  | { status: 'error'; message: string };
 
 interface JobDescriptionInputFormProps {
   generationState: GenerationState;
@@ -168,12 +165,11 @@ export function JobDescriptionInputForm({
       )}
 
       {generationState.status === 'error' && (
-        <div role="alert" className="career-profile-input-form__error">
-          <p>{generationState.message}</p>
-          <button type="button" onClick={handleGenerateClick}>
-            Retry
-          </button>
-        </div>
+        <GenerationErrorAlert
+          error={generationState.error}
+          message={generationState.message}
+          onRetry={handleGenerateClick}
+        />
       )}
     </div>
   );

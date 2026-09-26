@@ -4,13 +4,10 @@ import { generateMatchingAnalysis } from '../../services/matching/generateMatchi
 import { buildInitialMatchSelection } from '../../services/matching/selection';
 import { useAppState } from '../../state/AppContext';
 import type { MatchSelectionMode } from '../../state/AppState';
+import { toGenerationErrorState, type GenerationState } from '../../utils/generationState';
+import { GenerationErrorAlert } from '../common/GenerationErrorAlert';
 import { MatchingAnalysisView } from './MatchingAnalysisView';
 import { ExperienceSelectionList } from './ExperienceSelectionList';
-
-type GenerationState =
-  | { status: 'idle' }
-  | { status: 'loading' }
-  | { status: 'error'; message: string };
 
 /**
  * Content for the "Match & Tailor" workflow step (plan.md Stage 8).
@@ -60,8 +57,7 @@ export function MatchTailorStep() {
       });
       setGenerationState({ status: 'idle' });
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Failed to generate matching analysis.';
-      setGenerationState({ status: 'error', message });
+      setGenerationState(toGenerationErrorState(error, 'Failed to generate matching analysis.'));
     }
   }
 
@@ -118,12 +114,11 @@ export function MatchTailorStep() {
       </button>
 
       {generationState.status === 'error' && (
-        <div role="alert" className="career-profile-input-form__error">
-          <p>{generationState.message}</p>
-          <button type="button" onClick={handleGenerate}>
-            Retry
-          </button>
-        </div>
+        <GenerationErrorAlert
+          error={generationState.error}
+          message={generationState.message}
+          onRetry={handleGenerate}
+        />
       )}
 
       {matching && (

@@ -4,13 +4,9 @@ import { extractCareerProfile } from '../../services/career-profile/extractCaree
 import { downloadArtifact, CAREER_PROFILE_ARTIFACT } from '../../services/import-export/artifacts';
 import { useAppState } from '../../state/AppContext';
 import type { CareerProfile } from '../../schemas/careerProfile';
+import { toGenerationErrorState, type GenerationState } from '../../utils/generationState';
 import { CareerProfileInputForm, type CareerProfileGenerateInput } from './CareerProfileInputForm';
 import { CareerProfileEditor } from './CareerProfileEditor';
-
-type GenerationState =
-  | { status: 'idle' }
-  | { status: 'loading' }
-  | { status: 'error'; message: string };
 
 /**
  * Content for the "Career Profile" workflow step (plan.md Stage 5).
@@ -46,8 +42,7 @@ export function CareerProfileStep() {
       dispatch({ type: 'SET_CAREER_PROFILE', payload: result });
       setGenerationState({ status: 'idle' });
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Failed to generate Career Profile.';
-      setGenerationState({ status: 'error', message });
+      setGenerationState(toGenerationErrorState(error, 'Failed to generate Career Profile.'));
     }
   }
 
