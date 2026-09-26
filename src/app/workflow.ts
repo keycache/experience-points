@@ -13,6 +13,7 @@ export const WORKFLOW_STEPS: readonly WorkflowStep[] = [
   { id: 'configure', label: 'Configure' },
   { id: 'career-profile', label: 'Career Profile' },
   { id: 'job-description', label: 'Job Description' },
+  { id: 'writing-style', label: 'Writing Style' },
   { id: 'match-tailor', label: 'Match & Tailor' },
   { id: 'resume', label: 'Resume' },
   { id: 'cover-letter', label: 'Cover Letter' },

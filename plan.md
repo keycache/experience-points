@@ -603,7 +603,7 @@ Status: Complete
 
 ------------------------------------------------------------------------
 
-# Stage 7 --- Writing Style
+# Stage 7 --- Writing Style [COMPLETE]
 
 ## Goal
 
@@ -665,6 +665,8 @@ Keep this stage intentionally simple.
 
 Writing style, whether explicit or extrapolated, is available to the
 resume-generation pipeline.
+
+Status: Complete
 
 ------------------------------------------------------------------------
 

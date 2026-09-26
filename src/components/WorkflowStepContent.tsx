@@ -2,6 +2,7 @@ import { getWorkflowStep } from '../app/workflow';
 import { ConfigureStep } from './settings/ConfigureStep';
 import { CareerProfileStep } from './career-profile/CareerProfileStep';
 import { JobDescriptionStep } from './job-description/JobDescriptionStep';
+import { WritingStyleStep } from './writing-style/WritingStyleStep';
 
 interface WorkflowStepContentProps {
   stepId: string;
@@ -40,6 +41,10 @@ export function WorkflowStepContent({ stepId }: WorkflowStepContentProps) {
 
   if (step.id === 'job-description') {
     return <JobDescriptionStep />;
+  }
+
+  if (step.id === 'writing-style') {
+    return <WritingStyleStep />;
   }
 
   return (

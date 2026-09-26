@@ -259,3 +259,16 @@ body {
 .job-description-step__download {
   align-self: flex-start;
 }
+
+.writing-style-step,
+.writing-style-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 40rem;
+}
+
+.writing-style-form__hint {
+  color: #555;
+  font-style: italic;
+}
