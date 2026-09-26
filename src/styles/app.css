@@ -344,6 +344,12 @@ body {
   gap: 0.75rem;
 }
 
+.preview-export-step__actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
 .preview-export-step__preview {
   overflow-x: auto;
   padding: 1rem;

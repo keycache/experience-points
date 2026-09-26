@@ -1,4 +1,3 @@
-import type { MonthYear } from '../../schemas/common';
 import type {
   ResumeAward,
   ResumeCertification,
@@ -7,17 +6,7 @@ import type {
   ResumePublication,
   ResumeVolunteerExperience,
 } from '../../schemas/resume';
-
-const MONTH_LABELS = [
-  'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
-];
-
-function formatMonthYear(monthYear: MonthYear | undefined): string {
-  if (!monthYear) {
-    return '';
-  }
-  return `${MONTH_LABELS[monthYear.month - 1] ?? monthYear.month} ${monthYear.year}`;
-}
+import { formatMonthYear } from '../../utils/dates';
 
 /**
  * Entry renderers for every "additional resume section" beyond

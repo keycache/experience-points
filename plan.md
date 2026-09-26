@@ -1002,7 +1002,7 @@ Status: Complete
 
 ------------------------------------------------------------------------
 
-# Stage 12 --- Client-Side PDF Export
+# Stage 12 --- Client-Side PDF Export [COMPLETE]
 
 ## Goal
 
@@ -1065,6 +1065,8 @@ Test:
 ## Completion criteria
 
 PDF export works entirely client-side.
+
+Status: Complete
 
 ------------------------------------------------------------------------
 
