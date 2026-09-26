@@ -3,6 +3,7 @@ import type { JobDescription } from '../schemas/jobDescription';
 import type { WritingStyle } from '../schemas/writingStyle';
 import type { MatchingAnalysis } from '../schemas/matching';
 import type { Resume } from '../schemas/resume';
+import type { CoverLetter } from '../schemas/coverLetter';
 import type { WorkflowStepId } from '../app/workflow';
 import type { LLMSettings, MatchSelection } from './AppState';
 
@@ -14,6 +15,7 @@ export type AppAction =
   | { type: 'SET_MATCHING'; payload: MatchingAnalysis | undefined }
   | { type: 'SET_MATCH_SELECTION'; payload: MatchSelection | undefined }
   | { type: 'SET_RESUME'; payload: Resume | undefined }
+  | { type: 'SET_COVER_LETTER'; payload: CoverLetter | undefined }
   | { type: 'SET_WORKFLOW_STEP'; payload: WorkflowStepId }
   /**
    * Resets the entire session to its initial state, including clearing

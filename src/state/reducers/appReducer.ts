@@ -17,6 +17,8 @@ export function appReducer(state: AppState, action: AppAction): AppState {
       return { ...state, matchSelection: action.payload };
     case 'SET_RESUME':
       return { ...state, resume: action.payload };
+    case 'SET_COVER_LETTER':
+      return { ...state, coverLetter: action.payload };
     case 'SET_WORKFLOW_STEP':
       return { ...state, workflow: { currentStepId: action.payload } };
     case 'CLEAR_SESSION':

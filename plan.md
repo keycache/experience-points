@@ -1218,7 +1218,7 @@ Status: Complete
 
 ------------------------------------------------------------------------
 
-# Stage 14.5 --- Cover Letter Generation and Export
+# Stage 14.5 --- Cover Letter Generation and Export [COMPLETE]
 
 ## Goal
 
@@ -1336,6 +1336,8 @@ Test:
 A user can optionally generate, edit, and download a concise Cover
 Letter whose language matches the Resume's writing style, with or
 without explicit Writing Style input.
+
+Status: Complete
 
 ------------------------------------------------------------------------
 

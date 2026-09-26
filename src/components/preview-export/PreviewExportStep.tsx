@@ -3,6 +3,7 @@ import type { ChangeEvent } from 'react';
 import { useAppState } from '../../state/AppContext';
 import { ResumeDocument } from '../resume-document/ResumeDocument';
 import { downloadResumePdf } from '../../services/pdf/generateResumePdf';
+import { downloadCoverLetterPdf } from '../../services/pdf/generateCoverLetterPdf';
 import type { PageCountPreference } from '../../schemas/resume';
 
 type PdfExportState = { status: 'idle' } | { status: 'loading' } | { status: 'error'; message: string };
@@ -37,8 +38,11 @@ function pageCountPreferenceToOptionValue(preference: PageCountPreference): stri
  */
 export function PreviewExportStep() {
   const { state, dispatch } = useAppState();
-  const { resume } = state;
+  const { resume, coverLetter } = state;
   const [pdfExportState, setPdfExportState] = useState<PdfExportState>({ status: 'idle' });
+  const [coverLetterPdfExportState, setCoverLetterPdfExportState] = useState<PdfExportState>({
+    status: 'idle',
+  });
 
   async function handleDownloadPdf() {
     if (!resume) {
@@ -51,6 +55,20 @@ export function PreviewExportStep() {
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to generate PDF.';
       setPdfExportState({ status: 'error', message });
+    }
+  }
+
+  async function handleDownloadCoverLetterPdf() {
+    if (!coverLetter) {
+      return;
+    }
+    setCoverLetterPdfExportState({ status: 'loading' });
+    try {
+      await downloadCoverLetterPdf(coverLetter);
+      setCoverLetterPdfExportState({ status: 'idle' });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Failed to generate PDF.';
+      setCoverLetterPdfExportState({ status: 'error', message });
     }
   }
 
@@ -90,11 +108,30 @@ export function PreviewExportStep() {
             <button type="button" onClick={handleDownloadPdf} disabled={pdfExportState.status === 'loading'}>
               {pdfExportState.status === 'loading' ? 'Generating PDF…' : 'Download PDF'}
             </button>
+            {coverLetter && (
+              <button
+                type="button"
+                onClick={handleDownloadCoverLetterPdf}
+                disabled={coverLetterPdfExportState.status === 'loading'}
+              >
+                {coverLetterPdfExportState.status === 'loading'
+                  ? 'Generating Cover Letter PDF…'
+                  : 'Download Cover Letter PDF'}
+              </button>
+            )}
           </div>
           {pdfExportState.status === 'error' && (
             <div role="alert" className="career-profile-input-form__error">
               <p>{pdfExportState.message}</p>
               <button type="button" onClick={handleDownloadPdf}>
+                Retry
+              </button>
+            </div>
+          )}
+          {coverLetterPdfExportState.status === 'error' && (
+            <div role="alert" className="career-profile-input-form__error">
+              <p>{coverLetterPdfExportState.message}</p>
+              <button type="button" onClick={handleDownloadCoverLetterPdf}>
                 Retry
               </button>
             </div>

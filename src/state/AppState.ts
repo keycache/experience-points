@@ -3,6 +3,7 @@ import type { JobDescription } from '../schemas/jobDescription';
 import type { WritingStyle } from '../schemas/writingStyle';
 import type { MatchingAnalysis } from '../schemas/matching';
 import type { Resume } from '../schemas/resume';
+import type { CoverLetter } from '../schemas/coverLetter';
 import { DEFAULT_WORKFLOW_STEP_ID, type WorkflowStepId } from '../app/workflow';
 
 /**
@@ -55,6 +56,7 @@ export interface AppState {
   matching?: MatchingAnalysis;
   matchSelection?: MatchSelection;
   resume?: Resume;
+  coverLetter?: CoverLetter;
   workflow: WorkflowState;
 }
 
