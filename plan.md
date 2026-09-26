@@ -541,7 +541,7 @@ Status: Complete
 
 ------------------------------------------------------------------------
 
-# Stage 6 --- Job Description Extraction
+# Stage 6 --- Job Description Extraction [COMPLETE]
 
 ## Goal
 
@@ -598,6 +598,8 @@ Do not call the extraction LLM.
 ## Completion criteria
 
 JD extraction/import/edit/export works.
+
+Status: Complete
 
 ------------------------------------------------------------------------
 
