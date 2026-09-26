@@ -298,7 +298,7 @@ Status: Complete
 
 ------------------------------------------------------------------------
 
-# Stage 3 --- File Input and Artifact Import/Export
+# Stage 3 --- File Input and Artifact Import/Export [COMPLETE]
 
 ## Goal
 
@@ -354,6 +354,8 @@ resume.json
 ## Completion criteria
 
 Import/export round trips successfully.
+
+Status: Complete
 
 ------------------------------------------------------------------------
 
