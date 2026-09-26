@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import type { Resume } from '../../schemas/resume';
 import type { ResumeTemplate } from '../../schemas/resumeTemplate';
 import type { ResumeLayoutBlock } from '../../services/resume-preview/layoutBlocks';
-import { paginateResume } from '../../services/resume-preview/paginateResume';
+import { resolveResumeLayout } from '../../services/resume-preview/layoutOptimization';
 import { DEFAULT_RESUME_TEMPLATE, PAGE_HEIGHT_PT, PAGE_WIDTH_PT, ptToPx } from './template';
 import { ResumeHeader } from './ResumeHeader';
 import { ResumeSectionHeading, ResumeSummary } from './ResumeSummary';
@@ -93,13 +93,15 @@ function renderBlock(block: ResumeLayoutBlock, resume: Resume): ReactNode {
 /**
  * Renders a Resume as a paginated document (plan.md Stage 11).
  *
- * The same `paginateResume` call that will drive the PDF renderer in
- * Stage 12 is used here for the live preview, so the two stay visually
- * consistent (specification.md section 3.4: "The preview should use
- * the same rendering model where practical").
+ * The same `resolveResumeLayout` call that drives the PDF renderer
+ * (Stage 12) is used here for the live preview, so the two stay
+ * visually consistent (specification.md section 3.4: "The preview
+ * should use the same rendering model where practical") — including
+ * the effective template chosen by the resume's page-count preference
+ * (plan.md Stage 13).
  */
-export function ResumeDocument({ resume, template = DEFAULT_RESUME_TEMPLATE }: ResumeDocumentProps) {
-  const pages = paginateResume(resume, template);
+export function ResumeDocument({ resume, template: baseTemplate = DEFAULT_RESUME_TEMPLATE }: ResumeDocumentProps) {
+  const { template, pages } = resolveResumeLayout(resume, baseTemplate);
 
   return (
     <div

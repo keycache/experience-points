@@ -4,7 +4,7 @@ import type { Resume } from '../../schemas/resume';
 import type { ResumeTemplate } from '../../schemas/resumeTemplate';
 import { DEFAULT_RESUME_TEMPLATE, PAGE_HEIGHT_PT, PAGE_WIDTH_PT } from '../resume-document/template';
 import type { ResumeLayoutBlock } from '../../services/resume-preview/layoutBlocks';
-import { paginateResume } from '../../services/resume-preview/paginateResume';
+import { resolveResumeLayout } from '../../services/resume-preview/layoutOptimization';
 import { buildResumePdfStyles } from './styles';
 import { ResumePdfHeader } from './ResumePdfHeader';
 import { ResumePdfSectionHeading, ResumePdfSummary } from './ResumePdfSummary';
@@ -102,14 +102,15 @@ function renderBlock(
 
 /**
  * The Resume PDF document (plan.md Stage 12; specification.md section
- * 3.4). Uses the exact same `paginateResume` call as the live preview
- * (`resume-document/ResumeDocument.tsx`, Stage 11), so pagination
- * decisions are identical between preview and export — only the
- * rendering primitives differ (`@react-pdf/renderer` components
- * instead of HTML).
+ * 3.4). Uses the exact same `resolveResumeLayout` call as the live
+ * preview (`resume-document/ResumeDocument.tsx`, Stage 11), so
+ * pagination decisions — including the effective template chosen by
+ * the resume's page-count preference (plan.md Stage 13) — are
+ * identical between preview and export; only the rendering primitives
+ * differ (`@react-pdf/renderer` components instead of HTML).
  */
-export function ResumePdfDocument({ resume, template = DEFAULT_RESUME_TEMPLATE }: ResumePdfDocumentProps) {
-  const pages = paginateResume(resume, template);
+export function ResumePdfDocument({ resume, template: baseTemplate = DEFAULT_RESUME_TEMPLATE }: ResumePdfDocumentProps) {
+  const { template, pages } = resolveResumeLayout(resume, baseTemplate);
   const styles = buildResumePdfStyles(template);
 
   return (

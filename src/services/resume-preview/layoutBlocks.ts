@@ -20,9 +20,23 @@ import { DEFAULT_RESUME_TEMPLATE, getContentWidthPt } from '../../components/res
 /** Rough average character width, as a fraction of font size, for a proportional sans-serif font. */
 const AVERAGE_CHAR_WIDTH_FACTOR = 0.52;
 
+/**
+ * Real word-wrapping (both the browser's and `@react-pdf/renderer`'s)
+ * breaks at the last whole word that fits a line, which always uses
+ * somewhat less than the full line width. A naive character-count
+ * division assumes every line is packed edge-to-edge, systematically
+ * *under*-estimating line (and therefore page) counts relative to
+ * real rendering. Applying a small safety margin here keeps the
+ * pagination estimate on the conservative side, which matters most
+ * for plan.md Stage 13's page-count compression: a target that looks
+ * achievable in the estimate but is not in the real renderer would
+ * silently produce more physical pages than predicted.
+ */
+const LAYOUT_ESTIMATE_SAFETY_MARGIN = 0.9;
+
 export function estimateCharsPerLine(widthPt: number, fontSizePt: number): number {
   const charWidthPt = fontSizePt * AVERAGE_CHAR_WIDTH_FACTOR;
-  return Math.max(1, Math.floor(widthPt / charWidthPt));
+  return Math.max(1, Math.floor((widthPt * LAYOUT_ESTIMATE_SAFETY_MARGIN) / charWidthPt));
 }
 
 export function estimateLineCount(text: string, widthPt: number, fontSizePt: number): number {
@@ -66,6 +80,15 @@ export type ResumeLayoutBlock =
 const SECTION_HEADING_HEIGHT_FACTOR = 1.6;
 const ENTRY_HEIGHT_PT = 26;
 const ROLE_HEADER_HEIGHT_PT = 28;
+/**
+ * Horizontal space consumed by the bullet marker/indent in both
+ * renderers (the web preview's `.resume-doc__bullets` list indent and
+ * the PDF renderer's `styles.bulletMarker` column). Bullet text wraps
+ * within `contentWidthPt - BULLET_TEXT_INDENT_PT`, not the full
+ * section width -- omitting this consistently under-estimated bullet
+ * line counts for bullet-heavy resumes.
+ */
+const BULLET_TEXT_INDENT_PT = 12;
 
 function contactLineText(contact: ContactInfo): string {
   const parts = [contact.location, contact.email, contact.phone, contact.website, contact.github, contact.linkedin];
@@ -132,9 +155,10 @@ export function buildResumeLayoutBlocks(
         ROLE_HEADER_HEIGHT_PT,
         textHeightPt(roleHeaderText, template, contentWidthPt) + template.sectionSpacingPt,
       );
+      const bulletWidthPt = contentWidthPt - BULLET_TEXT_INDENT_PT;
       const firstBullet = role.bullets[0];
       const firstBulletHeightPt = firstBullet
-        ? textHeightPt(firstBullet.text, template, contentWidthPt)
+        ? textHeightPt(firstBullet.text, template, bulletWidthPt)
         : 0;
 
       blocks.push({
@@ -147,7 +171,7 @@ export function buildResumeLayoutBlocks(
       if (role.bullets.length > 1) {
         const restHeightPt = role.bullets
           .slice(1)
-          .reduce((sum, bullet) => sum + textHeightPt(bullet.text, template, contentWidthPt), 0);
+          .reduce((sum, bullet) => sum + textHeightPt(bullet.text, template, bulletWidthPt), 0);
         blocks.push({
           kind: 'experience-role-rest',
           experienceId: role.id,

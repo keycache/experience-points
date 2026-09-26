@@ -346,8 +346,13 @@ body {
 
 .preview-export-step__actions {
   display: flex;
+  align-items: center;
   gap: 0.5rem;
   flex-wrap: wrap;
+}
+
+.preview-export-step__page-count-label {
+  font-weight: 600;
 }
 
 .preview-export-step__preview {

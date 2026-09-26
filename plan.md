@@ -1070,7 +1070,7 @@ Status: Complete
 
 ------------------------------------------------------------------------
 
-# Stage 13 --- Page Count and Layout Optimization
+# Stage 13 --- Page Count and Layout Optimization [COMPLETE]
 
 ## Goal
 
@@ -1139,6 +1139,8 @@ Confirm the output remains readable.
 ## Completion criteria
 
 Page-count behavior is predictable and readable.
+
+Status: Complete
 
 ------------------------------------------------------------------------
 
