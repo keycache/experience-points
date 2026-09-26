@@ -670,7 +670,7 @@ Status: Complete
 
 ------------------------------------------------------------------------
 
-# Stage 8 --- Matching and Tailoring Selection
+# Stage 8 --- Matching and Tailoring Selection [COMPLETE]
 
 ## Goal
 
@@ -764,6 +764,8 @@ Confirm:
 ## Completion criteria
 
 Both selection modes work.
+
+Status: Complete
 
 ------------------------------------------------------------------------
 

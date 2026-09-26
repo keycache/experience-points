@@ -3,6 +3,7 @@ import { ConfigureStep } from './settings/ConfigureStep';
 import { CareerProfileStep } from './career-profile/CareerProfileStep';
 import { JobDescriptionStep } from './job-description/JobDescriptionStep';
 import { WritingStyleStep } from './writing-style/WritingStyleStep';
+import { MatchTailorStep } from './matching/MatchTailorStep';
 
 interface WorkflowStepContentProps {
   stepId: string;
@@ -45,6 +46,10 @@ export function WorkflowStepContent({ stepId }: WorkflowStepContentProps) {
 
   if (step.id === 'writing-style') {
     return <WritingStyleStep />;
+  }
+
+  if (step.id === 'match-tailor') {
+    return <MatchTailorStep />;
   }
 
   return (

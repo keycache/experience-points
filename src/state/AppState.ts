@@ -23,6 +23,23 @@ export interface WorkflowState {
 }
 
 /**
+ * Which of the two Matching and Selection modes (specification.md
+ * section 10) is currently active, and which Career Profile
+ * experience ids are considered "selected" for resume tailoring.
+ *
+ * In "best-match" mode, `selectedExperienceIds` mirrors the AI's
+ * `MatchingAnalysis.relevantExperienceIds` recommendation. In
+ * "manual" mode, the user has final control and may select a
+ * different set of experiences than the AI recommended.
+ */
+export type MatchSelectionMode = 'best-match' | 'manual';
+
+export interface MatchSelection {
+  mode: MatchSelectionMode;
+  selectedExperienceIds: string[];
+}
+
+/**
  * The application's single in-memory session state.
  *
  * See specification.md section 7 (Application State). This state is
@@ -36,6 +53,7 @@ export interface AppState {
   jobDescription?: JobDescription;
   writingStyle?: WritingStyle;
   matching?: MatchingAnalysis;
+  matchSelection?: MatchSelection;
   resume?: Resume;
   workflow: WorkflowState;
 }

@@ -13,6 +13,8 @@ export function appReducer(state: AppState, action: AppAction): AppState {
       return { ...state, writingStyle: action.payload };
     case 'SET_MATCHING':
       return { ...state, matching: action.payload };
+    case 'SET_MATCH_SELECTION':
+      return { ...state, matchSelection: action.payload };
     case 'SET_RESUME':
       return { ...state, resume: action.payload };
     case 'SET_WORKFLOW_STEP':
