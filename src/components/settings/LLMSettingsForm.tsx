@@ -1,4 +1,4 @@
-import { useId, useState } from 'react';
+import { useState } from 'react';
 import { useAppState } from '../../state/AppContext';
 
 /**
@@ -12,8 +12,6 @@ import { useAppState } from '../../state/AppContext';
 export function LLMSettingsForm() {
   const { state, dispatch } = useAppState();
   const [showApiKey, setShowApiKey] = useState(false);
-  const apiKeyInputId = useId();
-  const modelInputId = useId();
 
   return (
     <div className="llm-settings-form">
@@ -23,10 +21,10 @@ export function LLMSettingsForm() {
       </div>
 
       <div className="llm-settings-form__field">
-        <label htmlFor={apiKeyInputId}>API Key</label>
+        <label htmlFor="llm-api-key-input">API Key</label>
         <div className="llm-settings-form__api-key-row">
           <input
-            id={apiKeyInputId}
+            id="llm-api-key-input"
             type={showApiKey ? 'text' : 'password'}
             autoComplete="off"
             value={state.llm.apiKey}
@@ -41,9 +39,9 @@ export function LLMSettingsForm() {
       </div>
 
       <div className="llm-settings-form__field">
-        <label htmlFor={modelInputId}>Model</label>
+        <label htmlFor="llm-model-input">Model</label>
         <input
-          id={modelInputId}
+          id="llm-model-input"
           type="text"
           placeholder="e.g. openai/gpt-4o"
           value={state.llm.model}

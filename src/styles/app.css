@@ -139,6 +139,25 @@ body {
   flex: 1;
 }
 
+.test-connection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.test-connection__success {
+  color: #1a7f37;
+}
+
+.test-connection__error {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+  color: #8a1f11;
+}
+
 .configure-step__clear-session {
   align-self: flex-start;
 }

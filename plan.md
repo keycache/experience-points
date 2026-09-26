@@ -359,7 +359,7 @@ Status: Complete
 
 ------------------------------------------------------------------------
 
-# Stage 4 --- LLM Client Abstraction
+# Stage 4 --- LLM Client Abstraction [COMPLETE]
 
 ## Goal
 
@@ -424,6 +424,8 @@ Do not use a real API key in tests.
 ## Completion criteria
 
 All provider tests pass.
+
+Status: Complete
 
 ------------------------------------------------------------------------
 
