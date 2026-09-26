@@ -4,6 +4,7 @@ import { CareerProfileStep } from './career-profile/CareerProfileStep';
 import { JobDescriptionStep } from './job-description/JobDescriptionStep';
 import { WritingStyleStep } from './writing-style/WritingStyleStep';
 import { MatchTailorStep } from './matching/MatchTailorStep';
+import { ResumeStep } from './resume/ResumeStep';
 
 interface WorkflowStepContentProps {
   stepId: string;
@@ -50,6 +51,10 @@ export function WorkflowStepContent({ stepId }: WorkflowStepContentProps) {
 
   if (step.id === 'match-tailor') {
     return <MatchTailorStep />;
+  }
+
+  if (step.id === 'resume') {
+    return <ResumeStep />;
   }
 
   return (

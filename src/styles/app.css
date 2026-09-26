@@ -305,3 +305,26 @@ body {
   border-radius: 999px;
   padding: 0.1rem 0.5rem;
 }
+
+.resume-step {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 48rem;
+}
+
+.resume-view__experience {
+  margin-bottom: 1rem;
+}
+
+.resume-view__dates {
+  color: #555;
+  font-size: 0.85rem;
+  margin: 0.15rem 0 0.4rem;
+}
+
+.resume-view__bullet-count {
+  color: #555;
+  font-size: 0.8rem;
+  font-style: italic;
+}

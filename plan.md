@@ -769,7 +769,7 @@ Status: Complete
 
 ------------------------------------------------------------------------
 
-# Stage 9 --- Resume Generation
+# Stage 9 --- Resume Generation [COMPLETE]
 
 ## Goal
 
@@ -857,6 +857,8 @@ Test:
 
 A valid structured Resume is generated from a valid Career Profile and
 JD.
+
+Status: Complete
 
 ------------------------------------------------------------------------
 
