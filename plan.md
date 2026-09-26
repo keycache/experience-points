@@ -932,7 +932,7 @@ Status: Complete
 
 ------------------------------------------------------------------------
 
-# Stage 11 --- Resume Template and Live Preview
+# Stage 11 --- Resume Template and Live Preview [COMPLETE]
 
 ## Goal
 
@@ -997,6 +997,8 @@ Test:
 
 Preview visually matches the intended template closely enough for the
 first implementation.
+
+Status: Complete
 
 ------------------------------------------------------------------------
 

@@ -5,6 +5,7 @@ import { JobDescriptionStep } from './job-description/JobDescriptionStep';
 import { WritingStyleStep } from './writing-style/WritingStyleStep';
 import { MatchTailorStep } from './matching/MatchTailorStep';
 import { ResumeStep } from './resume/ResumeStep';
+import { PreviewExportStep } from './preview-export/PreviewExportStep';
 
 interface WorkflowStepContentProps {
   stepId: string;
@@ -55,6 +56,10 @@ export function WorkflowStepContent({ stepId }: WorkflowStepContentProps) {
 
   if (step.id === 'resume') {
     return <ResumeStep />;
+  }
+
+  if (step.id === 'preview-export') {
+    return <PreviewExportStep />;
   }
 
   return (
