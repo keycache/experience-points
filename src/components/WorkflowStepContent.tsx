@@ -1,11 +1,12 @@
 import { getWorkflowStep } from '../app/workflow';
+import { ConfigureStep } from './settings/ConfigureStep';
 
 interface WorkflowStepContentProps {
   stepId: string;
 }
 
 /**
- * Renders placeholder content for the active workflow step.
+ * Renders content for the active workflow step.
  *
  * If the current step id does not correspond to a known workflow step
  * (for example, because of a corrupted or future-versioned session
@@ -25,6 +26,10 @@ export function WorkflowStepContent({ stepId }: WorkflowStepContentProps) {
         </p>
       </div>
     );
+  }
+
+  if (step.id === 'configure') {
+    return <ConfigureStep />;
   }
 
   return (

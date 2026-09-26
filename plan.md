@@ -219,7 +219,7 @@ Status: Complete
 
 ------------------------------------------------------------------------
 
-# Stage 2 --- Session State and Privacy Boundary
+# Stage 2 --- Session State and Privacy Boundary [COMPLETE]
 
 ## Goal
 
@@ -293,6 +293,8 @@ Do not persist the API key.
 ## Completion criteria
 
 Privacy tests pass.
+
+Status: Complete
 
 ------------------------------------------------------------------------
 

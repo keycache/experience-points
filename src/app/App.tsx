@@ -1,18 +1,14 @@
-import { useState } from 'react';
 import { WorkflowNav } from '../components/WorkflowNav';
 import { WorkflowStepContent } from '../components/WorkflowStepContent';
 import { SchemaPlayground } from '../components/dev/SchemaPlayground';
-import {
-  DEFAULT_WORKFLOW_STEP_ID,
-  WORKFLOW_STEPS,
-  type WorkflowStepId,
-} from './workflow';
+import { AppProvider } from '../state/AppProvider';
+import { useAppState } from '../state/AppContext';
+import { WORKFLOW_STEPS, type WorkflowStepId } from './workflow';
 import '../styles/app.css';
 
-export function App() {
-  const [currentStepId, setCurrentStepId] = useState<WorkflowStepId>(
-    DEFAULT_WORKFLOW_STEP_ID,
-  );
+function AppShell() {
+  const { state, dispatch } = useAppState();
+  const currentStepId = state.workflow.currentStepId;
 
   return (
     <div className="app-shell">
@@ -27,7 +23,9 @@ export function App() {
       <WorkflowNav
         steps={WORKFLOW_STEPS}
         currentStepId={currentStepId}
-        onSelect={(stepId) => setCurrentStepId(stepId as WorkflowStepId)}
+        onSelect={(stepId) =>
+          dispatch({ type: 'SET_WORKFLOW_STEP', payload: stepId as WorkflowStepId })
+        }
       />
 
       <main className="app-shell__main">
@@ -36,6 +34,14 @@ export function App() {
 
       <SchemaPlayground />
     </div>
+  );
+}
+
+export function App() {
+  return (
+    <AppProvider>
+      <AppShell />
+    </AppProvider>
   );
 }
 
