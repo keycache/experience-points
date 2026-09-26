@@ -1144,7 +1144,7 @@ Status: Complete
 
 ------------------------------------------------------------------------
 
-# Stage 14 --- Complete Import/Resume-Only Workflow
+# Stage 14 --- Complete Import/Resume-Only Workflow [COMPLETE]
 
 ## Goal
 
@@ -1213,6 +1213,8 @@ Workflow B must not require an LLM.
 ## Completion criteria
 
 The reusable artifact workflows work end-to-end.
+
+Status: Complete
 
 ------------------------------------------------------------------------
 
