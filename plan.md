@@ -862,7 +862,7 @@ Status: Complete
 
 ------------------------------------------------------------------------
 
-# Stage 10 --- Resume Editor
+# Stage 10 --- Resume Editor [COMPLETE]
 
 ## Goal
 
@@ -927,6 +927,8 @@ Editing the Resume does not modify the Career Profile.
 ## Completion criteria
 
 User can fully control the generated Resume.
+
+Status: Complete
 
 ------------------------------------------------------------------------
 

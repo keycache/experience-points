@@ -32,6 +32,24 @@ export function StringListEditor({
     onChange(items.filter((_, i) => i !== index));
   }
 
+  function moveUp(index: number) {
+    if (index === 0) {
+      return;
+    }
+    const next = items.slice();
+    [next[index - 1], next[index]] = [next[index], next[index - 1]];
+    onChange(next);
+  }
+
+  function moveDown(index: number) {
+    if (index === items.length - 1) {
+      return;
+    }
+    const next = items.slice();
+    [next[index], next[index + 1]] = [next[index + 1], next[index]];
+    onChange(next);
+  }
+
   function add() {
     onChange([...items, '']);
   }
@@ -53,6 +71,16 @@ export function StringListEditor({
               value={item}
               onChange={(event) => updateAt(index, event.target.value)}
             />
+            <button type="button" onClick={() => moveUp(index)} disabled={index === 0}>
+              Move {label} up
+            </button>
+            <button
+              type="button"
+              onClick={() => moveDown(index)}
+              disabled={index === items.length - 1}
+            >
+              Move {label} down
+            </button>
             <button type="button" onClick={() => deleteAt(index)}>
               Delete {label}
             </button>

@@ -148,9 +148,9 @@ describe('Resume Generation workflow (Stage 9)', () => {
     await user.click(screen.getByRole('button', { name: /generate resume/i }));
 
     expect(
-      await screen.findByText(/platform engineer tailored for the hooli/i),
+      await screen.findByDisplayValue(/platform engineer tailored for the hooli/i),
     ).toBeInTheDocument();
-    expect(screen.getByText('Terraform')).toBeInTheDocument();
+    expect(screen.getByDisplayValue('Terraform')).toBeInTheDocument();
   });
 
   it('shows a JD-specific summary and prioritized relevant skills', async () => {
@@ -164,10 +164,10 @@ describe('Resume Generation workflow (Stage 9)', () => {
     fetchMock.mockResolvedValueOnce(mockFetchOnce(buildResumeResponse()));
     await user.click(screen.getByRole('button', { name: /generate resume/i }));
 
-    await screen.findByText(/platform engineer tailored for the hooli/i);
-    const skillsSection = screen.getByText('Skills').closest('section')!;
-    expect(within(skillsSection).getByText('Terraform')).toBeInTheDocument();
-    expect(within(skillsSection).getByText('Python')).toBeInTheDocument();
+    await screen.findByDisplayValue(/platform engineer tailored for the hooli/i);
+    const skillsGroup = screen.getByRole('group', { name: 'Skill 1' }).closest('fieldset')!;
+    expect(within(skillsGroup).getByDisplayValue('Terraform')).toBeInTheDocument();
+    expect(within(skillsGroup).getByDisplayValue('Python')).toBeInTheDocument();
   });
 
   it('shows the most impactful accomplishment first and respects the 6-bullet maximum', async () => {
@@ -181,11 +181,11 @@ describe('Resume Generation workflow (Stage 9)', () => {
     fetchMock.mockResolvedValueOnce(mockFetchOnce(buildResumeResponse()));
     await user.click(screen.getByRole('button', { name: /generate resume/i }));
 
-    const bulletList = await screen.findByLabelText('Initech bullets');
-    const bullets = within(bulletList).getAllByRole('listitem');
+    const experienceGroup = await screen.findByRole('group', { name: 'Experience 1' });
+    const bullets = within(experienceGroup).getAllByLabelText('Bullet text');
     expect(bullets).toHaveLength(2);
-    expect(bullets[0]).toHaveTextContent('Led migration of Terraform stacks to OpenTofu.');
-    expect(screen.getByText('2 bullet(s)')).toBeInTheDocument();
+    expect(bullets[0]).toHaveValue('Led migration of Terraform stacks to OpenTofu.');
+    expect(within(experienceGroup).getByText('2 bullet(s)')).toBeInTheDocument();
   });
 
   it('rejects a mocked response with more than 6 bullets for a role (bullet count constraint)', async () => {
@@ -295,7 +295,7 @@ describe('Resume Generation workflow (Stage 9)', () => {
     await user.click(within(alert).getByRole('button', { name: /retry/i }));
 
     expect(
-      await screen.findByText(/platform engineer tailored for the hooli/i),
+      await screen.findByDisplayValue(/platform engineer tailored for the hooli/i),
     ).toBeInTheDocument();
   });
 
@@ -309,7 +309,7 @@ describe('Resume Generation workflow (Stage 9)', () => {
 
     fetchMock.mockResolvedValueOnce(mockFetchOnce(buildResumeResponse()));
     await user.click(screen.getByRole('button', { name: /generate resume/i }));
-    await screen.findByText(/platform engineer tailored for the hooli/i);
+    await screen.findByDisplayValue(/platform engineer tailored for the hooli/i);
 
     // Go back to Match & Tailor, switch to manual selection, deselect the only experience.
     await user.click(screen.getByRole('button', { name: 'Match & Tailor' }));
@@ -322,6 +322,6 @@ describe('Resume Generation workflow (Stage 9)', () => {
     );
     await user.click(screen.getByRole('button', { name: /regenerate resume/i }));
 
-    expect(await screen.findByText('A different summary entirely.')).toBeInTheDocument();
+    expect(await screen.findByDisplayValue('A different summary entirely.')).toBeInTheDocument();
   });
 });
