@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { WorkflowNav } from '../components/WorkflowNav';
 import { WorkflowStepContent } from '../components/WorkflowStepContent';
+import { SchemaPlayground } from '../components/dev/SchemaPlayground';
 import {
   DEFAULT_WORKFLOW_STEP_ID,
   WORKFLOW_STEPS,
@@ -32,6 +33,8 @@ export function App() {
       <main className="app-shell__main">
         <WorkflowStepContent stepId={currentStepId} />
       </main>
+
+      <SchemaPlayground />
     </div>
   );
 }

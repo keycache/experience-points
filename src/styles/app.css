@@ -59,3 +59,30 @@ body {
 .workflow-step--unknown {
   color: #8a1f11;
 }
+
+.schema-playground {
+  margin-top: 1.5rem;
+  border: 1px dashed var(--workbench-border);
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+}
+
+.schema-playground__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin: 0.75rem 0;
+}
+
+.schema-playground textarea {
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 0.85rem;
+}
+
+.schema-playground__success {
+  color: #1a7f37;
+}
+
+.schema-playground__error {
+  color: #8a1f11;
+}

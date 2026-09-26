@@ -13,11 +13,22 @@ complete only when:
 4.  Any issue that took substantially longer than expected is documented
     in `findings.md`.
 
+Once all four conditions above are verified for a stage, mark it
+complete by:
+
+-   Adding `[COMPLETE]` to the stage's heading (e.g.
+    `# Stage 0 --- Project Bootstrap [COMPLETE]`).
+-   Adding a `Status: Complete` line directly under that stage's
+    `## Completion criteria` section.
+
+Do not mark a stage complete unless every condition above has actually
+been verified.
+
 Refer to `specification.md` for architectural and technical decisions.
 
 ------------------------------------------------------------------------
 
-# Stage 0 --- Project Bootstrap
+# Stage 0 --- Project Bootstrap [COMPLETE]
 
 ## Goal
 
@@ -96,9 +107,11 @@ Only the shell is required at this stage.
 
 All automated tests pass and all manual checks succeed.
 
+Status: Complete
+
 ------------------------------------------------------------------------
 
-# Stage 1 --- Schema Foundation
+# Stage 1 --- Schema Foundation [COMPLETE]
 
 ## Goal
 
@@ -201,6 +214,8 @@ validation error.
 ## Completion criteria
 
 All schema tests pass.
+
+Status: Complete
 
 ------------------------------------------------------------------------
 
