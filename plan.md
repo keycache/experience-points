@@ -1695,6 +1695,78 @@ The project is considered complete when:
 
 ------------------------------------------------------------------------
 
+# Stage 19 --- Static Hosting Deployment (GitHub Pages) [COMPLETE]
+
+## Goal
+
+Publish the built application as a static site on GitHub Pages, using
+only local `npm run` commands (no `.github/workflows` CI/CD pipeline).
+
+Refer to `specification.md`:
+
+-   Section 22 (Deployment)
+-   Section 2.1 (Local-first / client-only)
+-   Section 20 (Design Constraints)
+
+## Work
+
+Implement:
+
+``` text
+vite.config.ts
+  base: '/<repo-name>/'   ← required for a GitHub Pages project page
+
+public/.nojekyll          ← disables GitHub Pages' default Jekyll
+                             processing of the build output; copied into
+                             dist/ automatically by Vite
+
+package.json
+  "deploy": "npm run test && npm run build && gh-pages -d dist"
+```
+
+Add `gh-pages` as a dev dependency. The `deploy` script runs the full
+test suite and a production build before publishing, so a broken build
+is never pushed live.
+
+Do not add a `.github/workflows` CI/CD pipeline; deployment is a single
+local command.
+
+Do not add a SPA-routing 404 fallback; the application has no
+URL-based routing to fall back for.
+
+Do not add a `CNAME` file; the default
+`<owner>.github.io/<repo>/` URL is used.
+
+## Automated tests
+
+-   `npm run build` succeeds with the configured `base` path, and every
+    asset URL in the built `dist/index.html` is correctly prefixed
+    with that path.
+-   `dist/` contains a `.nojekyll` file after every build.
+
+## Manual UI test
+
+1.  Run `npm run deploy`.
+2.  Confirm the `gh-pages` branch is created/updated with the built
+    `dist/` contents.
+3.  In the repository's Settings → Pages, confirm Source is set to
+    "Deploy from a branch", branch `gh-pages`, folder `/ (root)`.
+4.  Visit `https://<owner>.github.io/<repo>/` and confirm the
+    application loads and is fully usable (no broken asset URLs, no
+    console errors related to the base path).
+5.  Confirm the privacy model is unchanged on the hosted site: no
+    network requests other than to the selected LLM provider occur
+    during normal use.
+
+## Completion criteria
+
+The application is reachable and fully functional at its GitHub Pages
+URL, published via a single `npm run deploy` command.
+
+Status: Complete
+
+------------------------------------------------------------------------
+
 # Findings Process
 
 `findings.md` is a living engineering document.

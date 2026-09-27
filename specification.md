@@ -1086,3 +1086,42 @@ Out of scope:
 -   Multiple visual resume templates.
 -   Server-side processing.
 -   Analytics requiring career-data collection.
+
+------------------------------------------------------------------------
+
+# 22. Deployment
+
+The application is a static, client-only build with no server-side
+component, so it can be hosted on any static file host. The initial
+target is **GitHub Pages** (a project page, not a user/organization
+root page).
+
+Requirements this introduces:
+
+-   `vite.config.ts` must set `base` to the repository's Pages path
+    (e.g. `/experience-points/`) so every built asset URL resolves
+    correctly when the site is served from a subpath rather than the
+    domain root.
+-   The build output (`dist/`) must include a `.nojekyll` file so
+    GitHub Pages does not run its default Jekyll processing step over
+    the build output (Jekyll ignores files/folders starting with `_`,
+    which Vite's own output does not currently produce, but this is
+    cheap, standard insurance against future tooling/plugins that do).
+    This is provided by committing an empty `public/.nojekyll` file,
+    which Vite copies into every build automatically.
+-   Publishing must be a single local `npm run` command, not a CI/CD
+    pipeline definition, consistent with this project's preference for
+    npm-script-driven tooling over `.github/workflows` — see
+    `package.json`'s `deploy` script (`test` -> `build` ->
+    `gh-pages -d dist`, using the `gh-pages` package to push the built
+    output to a `gh-pages` branch).
+-   No SPA client-side-routing fallback (e.g. a `404.html`
+    redirect trick) is required, since the application uses in-memory
+    workflow-step state rather than URL-based routing.
+-   No custom domain (`CNAME`) is required for the default
+    `<owner>.github.io/<repo>/` URL.
+-   Deployment does not change the privacy model in any way: the
+    published site is still fully static, LLM calls still go directly
+    from the visitor's browser to the selected provider, and no
+    application backend is introduced by hosting the built assets on
+    GitHub Pages.
