@@ -1452,7 +1452,7 @@ Status: Complete
 
 ------------------------------------------------------------------------
 
-# Stage 17 --- Security / Privacy Verification
+# Stage 17 --- Security / Privacy Verification [COMPLETE]
 
 ## Goal
 
@@ -1501,6 +1501,8 @@ Confirm the expected privacy model.
 ## Completion criteria
 
 Privacy model matches `specification.md`.
+
+Status: Complete
 
 ------------------------------------------------------------------------
 
