@@ -120,9 +120,11 @@ export function JobDescriptionInputForm({
           accept="image/*"
           multiple
           onChange={handleImagesSelected}
+          aria-describedby={imageError ? 'job-description-images-error' : undefined}
+          aria-invalid={imageError ? true : undefined}
         />
         {imageError && (
-          <p role="alert" className="career-profile-input-form__error">
+          <p role="alert" id="job-description-images-error" className="career-profile-input-form__error">
             {imageError}
           </p>
         )}
@@ -132,7 +134,7 @@ export function JobDescriptionInputForm({
               <li key={image.id}>
                 {image.name}
                 <button type="button" onClick={() => removeImage(image.id)}>
-                  Remove
+                  Remove {image.name}
                 </button>
               </li>
             ))}
@@ -141,7 +143,12 @@ export function JobDescriptionInputForm({
       </div>
 
       <div className="career-profile-input-form__actions">
-        <button type="button" onClick={handleGenerateClick} disabled={!canGenerate}>
+        <button
+          type="button"
+          onClick={handleGenerateClick}
+          disabled={!canGenerate}
+          aria-busy={generationState.status === 'loading'}
+        >
           {generationState.status === 'loading' ? 'Generating…' : 'Generate Structured JD'}
         </button>
 
@@ -153,13 +160,15 @@ export function JobDescriptionInputForm({
           type="file"
           accept=".json,application/json"
           aria-label="Import Job Description file"
+          aria-describedby={importError ? 'job-description-import-error' : undefined}
+          aria-invalid={importError ? true : undefined}
           className="visually-hidden-input"
           onChange={handleImportFile}
         />
       </div>
 
       {importError && (
-        <p role="alert" className="career-profile-input-form__error">
+        <p role="alert" id="job-description-import-error" className="career-profile-input-form__error">
           {importError}
         </p>
       )}

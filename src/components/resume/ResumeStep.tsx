@@ -109,7 +109,12 @@ export function ResumeStep() {
       )}
 
       <div className="resume-step__actions">
-        <button type="button" onClick={handleGenerate} disabled={!canGenerate}>
+        <button
+          type="button"
+          onClick={handleGenerate}
+          disabled={!canGenerate}
+          aria-busy={generationState.status === 'loading'}
+        >
           {generationState.status === 'loading'
             ? 'Generating…'
             : resume
@@ -125,13 +130,15 @@ export function ResumeStep() {
           type="file"
           accept=".json,application/json"
           aria-label="Import Resume file"
+          aria-describedby={importError ? 'resume-import-error' : undefined}
+          aria-invalid={importError ? true : undefined}
           className="visually-hidden-input"
           onChange={handleImportFile}
         />
       </div>
 
       {importError && (
-        <p role="alert" className="career-profile-input-form__error">
+        <p role="alert" id="resume-import-error" className="career-profile-input-form__error">
           {importError}
         </p>
       )}

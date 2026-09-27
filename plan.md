@@ -1397,7 +1397,7 @@ Status: Complete
 
 ------------------------------------------------------------------------
 
-# Stage 16 --- Accessibility and UX Pass
+# Stage 16 --- Accessibility and UX Pass [COMPLETE]
 
 ## Goal
 
@@ -1447,6 +1447,8 @@ Confirm the application remains usable.
 ## Completion criteria
 
 No known major accessibility issue remains.
+
+Status: Complete
 
 ------------------------------------------------------------------------
 

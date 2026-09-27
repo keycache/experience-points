@@ -108,7 +108,12 @@ export function CoverLetterStep() {
       )}
 
       <div className="cover-letter-step__actions">
-        <button type="button" onClick={handleGenerate} disabled={!canGenerate}>
+        <button
+          type="button"
+          onClick={handleGenerate}
+          disabled={!canGenerate}
+          aria-busy={generationState.status === 'loading'}
+        >
           {generationState.status === 'loading'
             ? 'Generating…'
             : coverLetter
@@ -124,13 +129,15 @@ export function CoverLetterStep() {
           type="file"
           accept=".json,application/json"
           aria-label="Import Cover Letter file"
+          aria-describedby={importError ? 'cover-letter-import-error' : undefined}
+          aria-invalid={importError ? true : undefined}
           className="visually-hidden-input"
           onChange={handleImportFile}
         />
       </div>
 
       {importError && (
-        <p role="alert" className="career-profile-input-form__error">
+        <p role="alert" id="cover-letter-import-error" className="career-profile-input-form__error">
           {importError}
         </p>
       )}

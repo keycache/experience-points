@@ -1,5 +1,13 @@
 :root {
-  color-scheme: light dark;
+  /*
+   * Deliberately "light" only (not "light dark"): every text/background
+   * color in this stylesheet is hand-picked and contrast-checked
+   * against a light background (plan.md Stage 16, "Sufficient
+   * contrast"). Letting the browser apply its own dark-mode UA styles
+   * on top of these fixed colors could silently produce low-contrast
+   * combinations (e.g. dark-red error text on a dark canvas).
+   */
+  color-scheme: light;
   --workbench-border: #d9d9e3;
   --workbench-accent: #5b3bff;
   --workbench-accent-bg: rgba(91, 59, 255, 0.1);
@@ -7,6 +15,8 @@
 
 body {
   margin: 0;
+  background: #ffffff;
+  color: #1a1a1a;
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 }
 

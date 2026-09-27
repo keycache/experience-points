@@ -105,7 +105,12 @@ export function PreviewExportStep() {
                 </option>
               ))}
             </select>
-            <button type="button" onClick={handleDownloadPdf} disabled={pdfExportState.status === 'loading'}>
+            <button
+              type="button"
+              onClick={handleDownloadPdf}
+              disabled={pdfExportState.status === 'loading'}
+              aria-busy={pdfExportState.status === 'loading'}
+            >
               {pdfExportState.status === 'loading' ? 'Generating PDF…' : 'Download PDF'}
             </button>
             {coverLetter && (
@@ -113,6 +118,7 @@ export function PreviewExportStep() {
                 type="button"
                 onClick={handleDownloadCoverLetterPdf}
                 disabled={coverLetterPdfExportState.status === 'loading'}
+                aria-busy={coverLetterPdfExportState.status === 'loading'}
               >
                 {coverLetterPdfExportState.status === 'loading'
                   ? 'Generating Cover Letter PDF…'

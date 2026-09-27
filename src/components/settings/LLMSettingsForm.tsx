@@ -32,8 +32,12 @@ export function LLMSettingsForm() {
               dispatch({ type: 'SET_LLM_SETTINGS', payload: { apiKey: event.target.value } })
             }
           />
-          <button type="button" onClick={() => setShowApiKey((current) => !current)}>
-            {showApiKey ? 'Hide' : 'Show'}
+          <button
+            type="button"
+            onClick={() => setShowApiKey((current) => !current)}
+            aria-pressed={showApiKey}
+          >
+            {showApiKey ? 'Hide API key' : 'Show API key'}
           </button>
         </div>
       </div>

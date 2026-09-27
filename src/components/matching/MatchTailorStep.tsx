@@ -105,7 +105,12 @@ export function MatchTailorStep() {
     <div className="match-tailor-step">
       <h2>Match &amp; Tailor</h2>
 
-      <button type="button" onClick={handleGenerate} disabled={!canGenerate}>
+      <button
+        type="button"
+        onClick={handleGenerate}
+        disabled={!canGenerate}
+        aria-busy={generationState.status === 'loading'}
+      >
         {generationState.status === 'loading'
           ? 'Generating…'
           : matching

@@ -47,6 +47,7 @@ export function TestConnectionButton() {
         type="button"
         onClick={runTest}
         disabled={!state.llm.apiKey || !state.llm.model || result.status === 'loading'}
+        aria-busy={result.status === 'loading'}
       >
         {result.status === 'loading' ? 'Testing connection…' : 'Test Connection'}
       </button>
